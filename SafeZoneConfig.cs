@@ -16,9 +16,11 @@ namespace SafeZonePlugin
             ProtectedEntityIds.CollectionChanged += (sender, args) => OnPropertyChanged();
         }
 
-        private string _CustomDataTag = "Safezone";
+        private string _SafeZoneCustomDataTag = "Safezone";
+        private long _SafeZoneRadius = 50;
 
-        public String CustomDataTag { get => _CustomDataTag; set => SetValue(ref _CustomDataTag, value); }
+        public string SafeZoneCustomDataTag { get => _SafeZoneCustomDataTag; set => SetValue(ref _SafeZoneCustomDataTag, value); }
+        public long SafeZoneRadius { get => _SafeZoneRadius; set => SetValue(ref _SafeZoneRadius, value); }
 
         public ObservableCollection<long> ProtectedEntityIds { get; } = new ObservableCollection<long>();
         
