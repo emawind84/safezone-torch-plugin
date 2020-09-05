@@ -5,7 +5,7 @@ Protects grids near a large ship or station using a Safe Zone block
 
 1. Place the zip into the `Plugins` folder of Torch
 
-2. When starting Torch the first time, a configuration file will be generated, you can change some settings there, there is no GUI at the moment. The file will be created in the `Instance` folder under the name `SafeZoneConfig.cfg`.
+2. When starting Torch the first time, a configuration file will be generated, you can change some settings there, there is no GUI at the moment. The file will be created in the `Instance` folder under the name `SafeZone.cfg`.
 
 3. In the game, build a Safe Block on the grid where you want to activate the protection, the block doesn't need zone chips to works.
 
