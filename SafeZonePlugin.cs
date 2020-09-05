@@ -164,7 +164,7 @@ namespace SafeZonePlugin
 
         private void SetupConfig()
         {
-            var configFile = Path.Combine(StoragePath, "SafeZoneConfig.cfg");
+            var configFile = Path.Combine(StoragePath, "SafeZone.cfg");
 
             try
             {
