@@ -74,7 +74,7 @@ namespace SafeZonePlugin
                 var players = MySession.Static.Players.GetOnlinePlayers();
                 Parallel.ForEach(players, player =>
                 {
-                    BoundingSphereD boundingSphereD = new BoundingSphereD(player.GetPosition(), 50.0);
+                    BoundingSphereD boundingSphereD = new BoundingSphereD(player.GetPosition(), Config.SafeZoneRadius);
                     var entities = new List<MyEntity>();
                     MyGamePruningStructure.GetAllTopMostEntitiesInSphere(ref boundingSphereD, entities, MyEntityQueryType.Both);
                     IEnumerable<MyCubeGrid> grids = entities.OfType<MyCubeGrid>();
@@ -104,6 +104,7 @@ namespace SafeZonePlugin
                         if (!Config.ProtectedEntityIds.Contains(safeZoneGrid.EntityId))
                             Config.ProtectedEntityIds.Add(safeZoneGrid.EntityId);
                         safeZoneGrid.DestructibleBlocks = false;
+                        safeZoneGrid.Editable = Config.GridEditable;
                     }
 
                     if (safeZoneBlock != null)
@@ -115,7 +116,7 @@ namespace SafeZonePlugin
                     
                     BoundingSphereD closeBoundingSphereD = new BoundingSphereD(player.GetPosition(), 10.0);
                     entities = new List<MyEntity>();
-                    MyGamePruningStructure.GetAllTopMostEntitiesInSphere(ref boundingSphereD, entities, MyEntityQueryType.Dynamic);
+                    MyGamePruningStructure.GetAllTopMostEntitiesInSphere(ref boundingSphereD, entities, MyEntityQueryType.Both);
                     grids = entities.OfType<MyCubeGrid>();
 
                     foreach(var grid in grids)
@@ -128,6 +129,7 @@ namespace SafeZonePlugin
                                 Torch.CurrentSession.Managers.GetManager<ChatManagerServer>()?.SendMessageAsOther(safeZoneGrid.DisplayName ?? "Server", 
                                     $"{grid.DisplayName} Damage Protection On", Color.Green, player.Client.SteamUserId);
                                 grid.DestructibleBlocks = false;
+                                grid.Editable = Config.GridEditable;
                                 if (!Config.ProtectedEntityIds.Contains(grid.EntityId))
                                     Config.ProtectedEntityIds.Add(grid.EntityId);
                             }
@@ -137,6 +139,7 @@ namespace SafeZonePlugin
                                 Torch.CurrentSession.Managers.GetManager<ChatManagerServer>()?.SendMessageAsOther("Server", 
                                     $"{grid.DisplayName} Damage Protection Off", Color.Red, player.Client.SteamUserId);
                                 grid.DestructibleBlocks = true;
+                                grid.Editable = true;
                                 Config.ProtectedEntityIds.Remove(grid.EntityId);
                             }
                         }
